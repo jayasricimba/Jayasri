@@ -11,8 +11,17 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 
 import os
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = "open_ai_key"
+load_dotenv()  # Load environment variables from .env
+
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+
+if not OPENAI_API_KEY:
+    raise ValueError("OPENAI_API_KEY not found in .env file")
+
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
 
 class ChatPDF:
     vector_store = None
